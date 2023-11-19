@@ -94,7 +94,7 @@ void UScreenShootTool::OnScreenshotCapturedInternal(int32 Width, int32 Height, c
 	{
 		ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
 		ImageWrapper->SetRaw(Bitmap.GetData(), Bitmap.GetAllocatedSize(), Width, Height, ERGBFormat::BGRA, 8);
-		const TArray<uint8>& JPEGData = ImageWrapper->GetCompressed(quality);
+		const TArray<uint8,FDefaultAllocator64>& JPEGData = ImageWrapper->GetCompressed(quality);
 		fileName += ".jpg";
 		FFileHelper::SaveArrayToFile(JPEGData, *fileName);
 	}
@@ -102,7 +102,7 @@ void UScreenShootTool::OnScreenshotCapturedInternal(int32 Width, int32 Height, c
 	{
 		ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::EXR);
 		ImageWrapper->SetRaw(Bitmap.GetData(), Bitmap.GetAllocatedSize(), Width, Height, ERGBFormat::BGRA, 8);
-		const TArray<uint8>& Data = ImageWrapper->GetCompressed(quality);
+		const TArray<uint8, FDefaultAllocator64>& Data = ImageWrapper->GetCompressed(quality);
 		fileName += ".exr";
 		FFileHelper::SaveArrayToFile(Data, *fileName);
 	}
@@ -111,7 +111,7 @@ void UScreenShootTool::OnScreenshotCapturedInternal(int32 Width, int32 Height, c
 		//默认使用Jpg格式
 		ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::JPEG);
 		ImageWrapper->SetRaw(Bitmap.GetData(), Bitmap.GetAllocatedSize(), Width, Height, ERGBFormat::BGRA, 8);
-		const TArray<uint8>& JPEGData = ImageWrapper->GetCompressed(quality);
+		const TArray<uint8, FDefaultAllocator64>& JPEGData = ImageWrapper->GetCompressed(quality);
 		fileName += ".jpg";
 		FFileHelper::SaveArrayToFile(JPEGData, *fileName);
 	}

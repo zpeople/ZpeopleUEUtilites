@@ -121,8 +121,8 @@ UTexture2D* UZpeopleLoadSource::LoadTexture2DFromFile(const FString& FilePath, b
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))
 	{
-		/*	TArray<uint8> UncompressedBGRA;*/
-		const TArray<uint8>* UncompressedBGRA = NULL;
+			TArray<uint8> UncompressedBGRA;
+		//const TArray<uint8>* UncompressedBGRA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
 		{
 
@@ -134,13 +134,13 @@ UTexture2D* UZpeopleLoadSource::LoadTexture2DFromFile(const FString& FilePath, b
 			Height = ImageWrapper->GetHeight();
 
 			void* TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-			//FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
-			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+			FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
+			//FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
 			LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 		
 
 			LoadedT2D->UpdateResource();
-			UncompressedBGRA = NULL;
+			UncompressedBGRA.Empty();
 			//delete[] TextureData;
 			
 		}
@@ -173,8 +173,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveAssetFromFile(const FString & Fil
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))
 	{
-		/*	TArray<uint8> UncompressedBGRA;*/
-		const TArray<uint8>* UncompressedBGRA = NULL;
+		TArray<uint8> UncompressedBGRA;
+		//const TArray<uint8>* UncompressedBGRA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
 		{
 
@@ -193,8 +193,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveAssetFromFile(const FString & Fil
 			if (!LoadedT2D) return NULL;
 
 			void* TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-			//FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
-			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+			FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
+			//FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
 			LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 
 
@@ -353,8 +353,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveBinFromFile(const FString & FileP
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))//图片压缩数据
 	{
-		/*	TArray<uint8> UncompressedBGRA;*/
-		const TArray<uint8>* UncompressedBGRA = NULL;
+			TArray<uint8> UncompressedBGRA;
+		//const TArray<uint8>* UncompressedBGRA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))//图片解压后的数据
 		{
 
@@ -368,7 +368,7 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveBinFromFile(const FString & FileP
 #pragma region  Memcpy
 				if (!LoadedT2D) return NULL;
 				void*  TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-				FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+				FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
 				LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 				LoadedT2D->UpdateResource();
 				delete[] TextureData;
@@ -378,7 +378,7 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveBinFromFile(const FString & FileP
 			
 				TArray<uint8>  UncompressedData;
 				TArray<FColor> colorArr;
-				UncompressedData = *UncompressedBGRA;
+				UncompressedData = UncompressedBGRA;
 				for (int i = 0; i < Height * 4; i += 4)
 				{
 					for (int j = 0; j < Width * 4; j += 4)
@@ -489,8 +489,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexture2DFromBin(const FString & FilePath, 
 	TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(EImageFormat::PNG);
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))
 	{
-		/*	TArray<uint8> UncompressedBGRA;*/
-		const TArray<uint8>* UncompressedBGRA = NULL;
+			TArray<uint8> UncompressedBGRA;
+		//const TArray<uint8>* UncompressedBGRA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
 		{
 
@@ -502,8 +502,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexture2DFromBin(const FString & FilePath, 
 			Height = ImageWrapper->GetHeight();
 
 			void* TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-			//FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
-			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+			FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
+			//FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
 			LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 			LoadedT2D->UpdateResource();
 
@@ -560,8 +560,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveThumbnailFromFile(const FString &
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(RawFileData.GetData(), RawFileData.Num()))
 	{
-		/*	TArray<uint8> UncompressedRBGA;*/
-		const TArray<uint8>* UncompressedRBGA = NULL;
+			TArray<uint8> UncompressedRBGA;
+		//const TArray<uint8>* UncompressedRBGA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::RGBA, 8, UncompressedRBGA))
 		{
 
@@ -574,8 +574,8 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveThumbnailFromFile(const FString &
 			if (IsVaildPath(thumpPath))
 			{
 				void* TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-				//FMemory::Memcpy(TextureData, UncompressedRBGA.GetData(), UncompressedRBGA.Num());
-				FMemory::Memcpy(TextureData, UncompressedRBGA->GetData(), UncompressedRBGA->Num());
+				FMemory::Memcpy(TextureData, UncompressedRBGA.GetData(), UncompressedRBGA.Num());
+				//FMemory::Memcpy(TextureData, UncompressedRBGA->GetData(), UncompressedRBGA->Num());
 				LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 				LoadedT2D->UpdateResource();
 
@@ -586,7 +586,7 @@ UTexture2D * UZpeopleLoadSource::LoadTexAndSaveThumbnailFromFile(const FString &
 			{
 				TArray<uint8>  UncompressedData;
 				TArray<FColor> colorArr;
-				UncompressedData = *UncompressedRBGA;
+				UncompressedData = UncompressedRBGA;
 				for (int i = 0; i < Height * 4; i += 4)
 				{
 					for (int j = 0; j < Width * 4; j += 4)
@@ -755,8 +755,8 @@ UTexture2D* UZpeopleLoadSource::BytesToTexture2d(const TArray<uint8> bytes)
 
 	if (ImageWrapper.IsValid() && ImageWrapper->SetCompressed(bytes.GetData(), bytes.Num()))
 	{
-		/*TArray<uint8> UncompressedBGRA;*/
-		const TArray<uint8>* UncompressedBGRA = NULL;
+		TArray<uint8> UncompressedBGRA;
+		//const TArray<uint8>* UncompressedBGRA = NULL;
 		if (ImageWrapper->GetRaw(ERGBFormat::BGRA, 8, UncompressedBGRA))
 		{
 
@@ -765,8 +765,8 @@ UTexture2D* UZpeopleLoadSource::BytesToTexture2d(const TArray<uint8> bytes)
 			if (!LoadedT2D) return NULL;
 
 			void* TextureData = LoadedT2D->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-			//FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
-			FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
+			FMemory::Memcpy(TextureData, UncompressedBGRA.GetData(), UncompressedBGRA.Num());
+			//FMemory::Memcpy(TextureData, UncompressedBGRA->GetData(), UncompressedBGRA->Num());
 			LoadedT2D->PlatformData->Mips[0].BulkData.Unlock();
 
 			LoadedT2D->UpdateResource();

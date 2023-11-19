@@ -1,0 +1,34 @@
+{
+  "CanContainContent": true,
+  "Category": "Zpeople",
+  "CreatedBy": "Zpeople",
+  "CreatedByURL": "",
+  "Description": "",
+  "DocsURL": "",
+  "EnabledByDefault": true,
+  "FileVersion": 3,
+  "FriendlyName": "ZpeopleUEUtilites",
+  "Installed": true,
+  "IsBetaVersion": false,
+  "MarketplaceURL": "",
+  "Modules": [
+    {
+      "Name": "ZpeopleUEUtilites",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    },
+	{
+      "Name": "WebBrowserEx",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    },
+	{
+      "Name": "RyRuntime",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "SupportURL": "",
+  "Version": 1,
+  "VersionName": "1.0"
+}
